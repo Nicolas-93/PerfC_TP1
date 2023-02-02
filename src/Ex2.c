@@ -48,6 +48,11 @@ int question_2a(void) {
     return 0;
 }
 
+int is_corner(int x, int y) {
+    return ((x == 0 && y == 0) || (x == COLS && y == 0) ||
+            (x == COLS && y == LINES) || (x == 0 && y == LINES));
+}
+
 int question_2_corrige(void) {
     int x, y;
     initscr();
@@ -62,10 +67,12 @@ int question_2_corrige(void) {
     while (1) {
         x = (x + 1) % COLS;
         y = (y + 1) % LINES;
+        if (is_corner(x, y))
+            continue;
         mvaddch(y, x, 'o');
         refresh();
-        // mvaddch(y, x, ' ');
-        mvdelch(y, x);
+        mvaddch(y, x, ' ');
+        // mvdelch(y, x);
         usleep(DELAI);
     }
     endwin();
