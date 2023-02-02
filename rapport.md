@@ -76,7 +76,7 @@ On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, 
 
 
 # Conclusion
-Pendant ce TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
+Pendant ce. TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
 
 # Compilation
 Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simplifier la compilation, automatiser le formatage et la création d'un rendu au format ``zip``.
