@@ -57,13 +57,27 @@ geometry: margin=3cm
 3. a) La fonction ``nodelay`` permet de paramétrer la fonction ``getch`` afin qu'elle soit non bloquante.
 
 ## Exercice 4
+
 1. La fonction ``mousemask`` permet de récupérer les événements souris, selon l'argument ``mask`` précisant les événements que l'on souhaite obtenir (Clics gauche/droit, touche modificatrice pressée pendant le clic, etc...).
 
+## Exercice 5
+
+## Exercice 6
+
+## Exercice 7
+
+## Exercice 8
+
+Pour cet exercice, sans implémentations spécifique demandées, nous avons fait le choix d'utiliser le terminal comme notre tableau, afin d'éviter une allocation assez lourde pour un petit exercice. Nous avons ainsi découvert une fonction nommée ``mvinch`` nous permettant de récupérer depuis le tampon d'affichage du terminal, un caractère quelconque à une position donnée.
+
+On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, puis agrandissement, les caractères ayant été affichés sont supprimés.
 
 # Conclusion
 Pendant ce TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
 
 # Compilation
-Vous pouvez utiliser la commande ``make all``.
+Nous avons fait le choix d'utiliser un Makefile, dès à présent 
+Vous pouvez utiliser la commande ``make``.
 
 # Utilisation
+Les exercice sont compilés séparément, et sont placés dans le dossier ``build``.
