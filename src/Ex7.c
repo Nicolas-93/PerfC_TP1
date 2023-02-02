@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 typedef struct {
     int x;
@@ -42,14 +43,31 @@ int number_truncate(int* n, int min, int max) {
 
 void marche_aleatoire(void) {
     Point person = {COLS / 2, LINES / 2};
+    int delai = 100000, touche;
+    int pause = false;
     nodelay(stdscr, TRUE);
+    keypad(stdscr, TRUE);
     cbreak();
     noecho();
     curs_set(FALSE);
 
     while (1) {
-        mvaddch(person.y, person.x, 'x');
+        touche = getch();
 
+        if (touche != ERR) {
+            if (touche == KEY_DOWN)
+                delai *= 2;
+            if (touche == KEY_UP)
+                delai /= 2;
+            if (touche == '\n')
+                pause ^= 1;
+            if (touche == 'q')
+                break;
+        }
+        if (pause)
+            continue;
+
+        mvaddch(person.y, person.x, 'x');
         if (random_bool())
             person.x += random_direction();
         else
@@ -58,9 +76,11 @@ void marche_aleatoire(void) {
         number_truncate(&person.x, 0, COLS - 1);
         number_truncate(&person.y, 0, LINES - 1);
 
-        usleep(100000);
+        usleep(delai);
 
-        mvaddch(person.y, person.x, 'o');
+        attron(A_BOLD);
+        mvaddch(person.y, person.x, '0');
+        attroff(A_BOLD);
 
         refresh();
     }
