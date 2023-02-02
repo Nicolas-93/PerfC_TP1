@@ -40,7 +40,7 @@ geometry: margin=3cm
 
 1. 
     a) La fonction clear permet d'effacer le contenu du terminal.
-    
+
     b) Déplacer le clear avant le refresh (sans rien avoir afficher entre), fait que plus rien n'est affiché.
 
     c) Rien de particulier.
@@ -72,12 +72,23 @@ Pour cet exercice, sans implémentations spécifique demandées, nous avons fait
 
 On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, puis agrandissement, les caractères ayant été affichés sont supprimés.
 
+# Exercice 9
+
+
 # Conclusion
 Pendant ce TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
 
 # Compilation
-Nous avons fait le choix d'utiliser un Makefile, dès à présent 
+Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simplifier la compilation, automatiser le formatage et la création d'un rendu au format ``zip``.
 Vous pouvez utiliser la commande ``make``.
 
+Remarque : La norme utilisée pour la compilation a été remplacé par ``gnu17`` au lieu de ``c17``, afin que les warnings liées à ``usleep`` disparaissent.
+La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes.
+
 # Utilisation
-Les exercice sont compilés séparément, et sont placés dans le dossier ``build``.
+Les exercices sont compilés séparément, et placés dans le dossier ``build``.
+
+Par exemple :
+```sh
+./build/Ex7
+```

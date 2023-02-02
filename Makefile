@@ -4,7 +4,7 @@ SRC_DIR=src
 INC_DIR=include
 INCLUDE=-I$(INC_DIR)
 LIBS=-lncurses -lm
-CFLAGS=-fdiagnostics-color=always -Wall -pedantic -std=c17 -g
+CFLAGS=-fdiagnostics-color=always -Wall -pedantic -std=gnu17 -g
 NOM_ZIP=SEBAN_POUYANFAR.zip
 
 SOURCES=$(wildcard $(SRC_DIR)/*.c)
