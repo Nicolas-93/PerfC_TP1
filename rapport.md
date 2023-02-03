@@ -83,7 +83,7 @@ Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simpli
 Vous pouvez utiliser la commande ``make``.
 
 Remarque : La norme utilisée pour la compilation a été remplacé par ``gnu17`` au lieu de ``c17``, afin que les warnings liées à ``usleep`` disparaissent.
-La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes.
+La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes qui servent à tout.
 
 # Utilisation
 Les exercices sont compilés séparément, et placés dans le dossier ``build``.
