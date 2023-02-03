@@ -5,7 +5,7 @@ date: 30 janvier 2023
 author:
     - Nicolas SEBAN
     - Amir POUYANFAR
-geometry: margin=3cm
+geometry: margin=1cm
 ...
 
 \pagebreak
@@ -74,6 +74,21 @@ On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, 
 
 # Exercice 9
 
+| **Prototype**                                      | **Role des paramètres**                                                                         | **Valeur renvoyée**               |                                                    **Résumé**                                                   |   |
+|----------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------|:---------------------------------------------------------------------------------------------------------------:|---|
+| ``int addch(chtype ch)``                           | ch : caractère à insérer                                                                        | OK / ERR                          | imprime un caractère en sortie à la position du curseur                                                         |   |
+| ``int mvaddch(int y, int x, const chtype ch)``     | y : ordonnée / x : abscisse / ch : caractère à insérer                                          | OK / ERR                          | imprime un caractère en sortie à la position (y, x) demandée                                                    |   |
+| int printw(char* fmt [, arg] ...)                  | fmt : chaine de formatage                                                                       | OK / ERR                          | imprime une chaine formatée en sortie à la position du curseur                                                  |   |
+| int mvprintw(int y, int x, char* fmt [, arg] ...)  | y : ordonnée / x : abscisse / fmt : chaine de formatage                                         | OK / ERR                          | imprime une chaine formatée en sortie à la position (y, x) demandée                                             |   |
+| int attron(int attrs)                              | attrs : attributs (A_NORMAL, A_BOLD, A_BLINK etc. (combinables avec l'opérateur "ou binaire"))  | OK / ERR                          | active des attributs aux textes en sortie (Gras, souligné etc.)                                                 |   |
+| int attroff(int attrs)                             | attrs : attributs (A_NORMAL, A_BOLD, A_BLINK etc. (combinables avec l'opérateur "ou binaire"))) | OK / ERR                          | désactive un mode d'affichage ayant été activé préalablement par ``attron``                                     |   |
+| int curs_set(int visibility)                       | visibility :  0 --> invisible / 1 --> normal / 2 --> high visibility mode                       | OK / ERR                          | paramètre la visibilité du curseur du terminal                                                                  |   |
+| int usleep(useconds_t  usec )                      | usec : nombre de microsecondes                                                                  | Err : -1 / OK : 0                 | suspend l'exécution pour ``n`` microsecondes                                                                    |   |
+| int getstr(char * str)                             | str : adresse de destination de la chaine de caractères                                         | OK / ERR                          | récupère une entrée utilisateur, au positionement actuel du curseur                                             |   |
+| int noecho(void);                                  |                                                -                                                | OK / ERR                          | désactive le mode echo sur l'écran courant (c'est-à-dire de pas afficher)                                       |   |
+| int nodelay(WINDOW *win, bool bf);                 | win : fenetre / bf : booléen                                                                    | OK / ERR                          | paramétre la fonction ``getch`` afin qu'elle soit non bloquante                                                 |   |
+| mmask_t mousemask(mmask_t newmask, mmask *oldmask) | newmask : les événements que l'on souhaite récupérer                                            | masque des événements reportables | récupère les événements souris, selon l'argument ``newmask`` précisant les événements que l'on souhaite obtenir |   |
+| chtype mvinch(WINDOW *win)                         | win : fenetre                                                                                   | caractère                         | récupère depuis le tampon d'affichage du terminal, un caractère quelconque à une position donnée                |   |
 
 # Conclusion
 Pendant ce. TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
