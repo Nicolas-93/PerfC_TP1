@@ -72,7 +72,7 @@ Pour cet exercice, sans implémentations spécifique demandées, nous avons fait
 
 On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, puis agrandissement, les caractères ayant été affichés sont supprimés.
 
-# Exercice 9
+## Exercice 9
 
 | **Prototype**                                      | **Role des paramètres**                                                                         | **Valeur renvoyée**               |                                                    **Résumé**                                                   |   |
 |----------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------|:---------------------------------------------------------------------------------------------------------------:|---|
