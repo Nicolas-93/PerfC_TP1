@@ -5,12 +5,13 @@ date: 30 janvier 2023
 author:
     - Nicolas SEBAN
     - Amir POUYANFAR
-geometry: margin=1cm
+geometry: margin=3cm
 ...
 
 \pagebreak
 
 # Introduction
+Durant ce TP nous découvrons la bibliothèque ``ncurses`` permettant de créer des ``TUI``s (*Terminal User Interface*)
 
 # Réponses
 
@@ -18,15 +19,15 @@ geometry: margin=1cm
 
 1.
     a) L'origine est positionnée en $(y=0, x=0)$, et les positions sont indéxées de $0$ à ``COLS``$-1$ et ``LINES``$-1$.
-  
-    b) ``LINES`` ET ``COLS`` représentent respectivemet le nombre de lignes, et de colonnes dans le terminal.
 
-    c) La fonction ``move`` déplace le curseur à la $y$ème ligne et $x$ème colonne.
+    b) ``LINES`` et ``COLS`` représentent respectivemet le nombre de lignes, et de colonnes dans le terminal.
+
+    c) La fonction ``move`` déplace le curseur à la $y^{ème}$ ligne et $x^{ème}$ colonne.
 
     d)
-    - ``addchr`` permet d'imprimer un caractère en sortie à la position du curseur.
-    - ``mvaddch`` permet d'imprimer un caractère en sortie à la position (y, x) demandée.
-    - ``printw`` permet d'imprimer une chaine formatée en sortie à la position du curseur.
+    - ``addchr`` imprime un caractère en sortie à la position du curseur.
+    - ``mvaddch`` imprime un caractère en sortie à la position (y, x) demandée.
+    - ``printw`` imprime une chaine formatée en sortie à la position du curseur.
     - ``mvprintw`` permet d'imprimer une chaine formatée en sortie à la position (y, x) demandée.
 2.
     a) La fonction ``attron`` permet d'activer des attributs aux textes en sortie (Gras, souligné, etc...)
@@ -72,23 +73,101 @@ Pour cet exercice, sans implémentations spécifique demandées, nous avons fait
 
 On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, puis agrandissement, les caractères ayant été affichés sont supprimés.
 
+\pagebreak
+
 ## Exercice 9
 
-| **Prototype**                                      | **Role des paramètres**                                                                         | **Valeur renvoyée**               |                                                    **Résumé**                                                   |   |
-|----------------------------------------------------|-------------------------------------------------------------------------------------------------|-----------------------------------|:---------------------------------------------------------------------------------------------------------------:|---|
-| ``int addch(chtype ch)``                           | ch : caractère à insérer                                                                        | OK / ERR                          | imprime un caractère en sortie à la position du curseur                                                         |   |
-| ``int mvaddch(int y, int x, const chtype ch)``     | y : ordonnée / x : abscisse / ch : caractère à insérer                                          | OK / ERR                          | imprime un caractère en sortie à la position (y, x) demandée                                                    |   |
-| int printw(char* fmt [, arg] ...)                  | fmt : chaine de formatage                                                                       | OK / ERR                          | imprime une chaine formatée en sortie à la position du curseur                                                  |   |
-| int mvprintw(int y, int x, char* fmt [, arg] ...)  | y : ordonnée / x : abscisse / fmt : chaine de formatage                                         | OK / ERR                          | imprime une chaine formatée en sortie à la position (y, x) demandée                                             |   |
-| int attron(int attrs)                              | attrs : attributs (A_NORMAL, A_BOLD, A_BLINK etc. (combinables avec l'opérateur "ou binaire"))  | OK / ERR                          | active des attributs aux textes en sortie (Gras, souligné etc.)                                                 |   |
-| int attroff(int attrs)                             | attrs : attributs (A_NORMAL, A_BOLD, A_BLINK etc. (combinables avec l'opérateur "ou binaire"))) | OK / ERR                          | désactive un mode d'affichage ayant été activé préalablement par ``attron``                                     |   |
-| int curs_set(int visibility)                       | visibility :  0 --> invisible / 1 --> normal / 2 --> high visibility mode                       | OK / ERR                          | paramètre la visibilité du curseur du terminal                                                                  |   |
-| int usleep(useconds_t  usec )                      | usec : nombre de microsecondes                                                                  | Err : -1 / OK : 0                 | suspend l'exécution pour ``n`` microsecondes                                                                    |   |
-| int getstr(char * str)                             | str : adresse de destination de la chaine de caractères                                         | OK / ERR                          | récupère une entrée utilisateur, au positionement actuel du curseur                                             |   |
-| int noecho(void);                                  |                                                -                                                | OK / ERR                          | désactive le mode echo sur l'écran courant (c'est-à-dire de pas afficher)                                       |   |
-| int nodelay(WINDOW *win, bool bf);                 | win : fenetre / bf : booléen                                                                    | OK / ERR                          | paramétre la fonction ``getch`` afin qu'elle soit non bloquante                                                 |   |
-| mmask_t mousemask(mmask_t newmask, mmask *oldmask) | newmask : les événements que l'on souhaite récupérer                                            | masque des événements reportables | récupère les événements souris, selon l'argument ``newmask`` précisant les événements que l'on souhaite obtenir |   |
-| chtype mvinch(WINDOW *win)                         | win : fenetre                                                                                   | caractère                         | récupère depuis le tampon d'affichage du terminal, un caractère quelconque à une position donnée                |   |
+- ``int addch(chtype ch)``{.c}
+    - Imprime un caractère en sortie à la position actuelle du curseur
+    - Paramètres :
+        - ``ch`` : caractère à insérer
+    - Retourne : OK / ERR
+
+- ``int mvaddch(int y, int x, const chtype ch)``{.c}
+    - imprime un caractère en sortie à la position (y, x) demandée
+    - Paramètres :
+        - ``y`` : ordonnée
+        - ``x`` : abscisse
+        - ``ch`` : caractère à insérer
+    - Retourne : OK / ERR
+
+- ``int printw(char* fmt, ...)``{.c}
+    - Imprime une chaine formatée en sortie à la position du curseur. (analogue à ``printf``)
+    - Paramètres :
+        - ``fmt`` : chaine de formatage
+        - ``...`` : Liste des valeurs à formatter
+    - Retourne : OK / ERR
+
+- ``int mvprintw(int y, int x, char* fmt, ...)``{.c}
+    - Imprime une chaine formatée en sortie à la position (y, x) demandée
+    - Paramètres :
+        - ``y`` : ordonnée
+        - ``x`` : abscisse
+        - ``fmt`` : chaine de formatage
+        - ``...`` : Liste des valeurs à formatter
+    - Retourne : OK / ERR
+
+- ``int attron(int attrs)``{.c}
+    - Active des modes d'affichage aux textes en sortie (Gras, souligné, clignotement, etc.)
+    - Paramètres :
+        - ``attrs`` : attributs à activer (``A_NORMAL``, ``A_BOLD``, ``A_BLINK``, etc.), ils sont combinables avec l'opérateur "OU binaire")
+    - Retourne : OK / ERR
+
+- ``int attroff(int attrs) ``{.c}
+    - Désactive des modes d'affichage ayant été activés préalablement par ``attron``
+    - Paramètres :
+        - ``attrs`` : attributs à désactiver (``A_NORMAL``, ``A_BOLD``, ``A_BLINK``, etc.), ils sont combinables avec l'opérateur "OU binaire")
+    - Retourne : OK / ERR
+
+- ``int curs_set(int visibility)``{.c}
+    - Règle la visibilité du curseur du terminal.
+    - Paramètres :
+        - ``visibility`` :
+            - FALSE : invisible
+            - TRUE : visibilité normale
+            - 2 : visibilité importante
+    - Retourne : OK / ERR
+
+\pagebreak
+
+- ``int getstr(char* str)``{.c}
+    - Récupère une entrée utilisateur, au positionement actuel du curseur et l'écrit dans ``str``
+    - Paramètres :
+        - ``str`` : adresse de la chaine de caractères.
+    - Retourne : OK / ERR
+
+- ``int usleep(useconds_t usec)``{.c}
+    - Suspend l'exécution du programme pour $n$ microsecondes
+    - Paramètres :
+        - ``usec`` : Durée en microsecondes
+    - Retourne : ``-1`` en cas d'erreur, ``0`` sinon
+
+- ``int noecho(void)``{.c}
+    - Désactive l'affichage des entrées utilisateur sur la fenêtre standard.
+    - Retourne : OK / ERR
+
+- ``int nodelay(WINDOW *win, bool bf)``{.c}
+    - Ajuste la fonction ``getch`` afin qu'elle soit bloquante ou non, sur la fenêtre ``win``.
+    - Paramètres :
+        - ``win`` : fenêtre
+        - ``bf`` : booléen
+            - ``TRUE`` : ``getch`` devient non bloquant.
+            - ``FALSE`` : ``getch`` attend une entrée.
+
+- ``mmask_t mousemask(mmask_t newmask, mmask *oldmask)``{.c}
+    - Configure les évènements souris, selon l'argument ``newmask`` afin de préciser les événements que l'on souhaite obtenir.
+    - Paramètres :
+        - ``newmask`` : les événements que l'on souhaite récupérer, analaloguement à ``attron/offf``, nous pouvons utiliser l'opérateur ``OU`` binaire afin de récupérer différents évènements : ``BUTTON1_CLICKED``, ``BUTTON_SHIFT``, ``ALL_MOUSE_EVENTS``, ``REPORT_MOUSE_POSITION`` etc.
+        - ``oldmask`` : Adresse où stocker l'ancienne configuration des évènements (Ignorable avec ``NULL``)
+    - Retourne : La nouvelle configuration (masque) des évènements.
+
+- ``chtype mvinch(WINDOW *win)``{.c}
+    - Récupère depuis le tampon d'affichage du terminal, un caractère quelconque à une position donnée.
+    - Paramètres :
+        - ``win`` : fenêtre
+    - Retourne : le caractère lu depuis le terminal, avec son mode d'affichage. Pour récupérer le caractère "brut", il est nécessaire d'appliquer le masque ``A_CHARTEXT`` avec l'opérateur ``ET`` binaire. 
+
+\pagebreak
 
 # Conclusion
 Pendant ce. TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
@@ -98,7 +177,7 @@ Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simpli
 Vous pouvez utiliser la commande ``make``.
 
 Remarque : La norme utilisée pour la compilation a été remplacé par ``gnu17`` au lieu de ``c17``, afin que les warnings liées à ``usleep`` disparaissent.
-La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes qui servent à tout.
+La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes.
 
 # Utilisation
 Les exercices sont compilés séparément, et placés dans le dossier ``build``.
