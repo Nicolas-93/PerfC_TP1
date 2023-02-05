@@ -56,6 +56,7 @@ int is_corner(int x, int y) {
 int question_2_corrige(void) {
     int x, y;
     initscr();
+    curs_set(FALSE);
 
     x = 0;
     y = 0;
