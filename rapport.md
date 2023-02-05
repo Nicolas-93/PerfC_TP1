@@ -6,6 +6,17 @@ author:
     - Nicolas SEBAN
     - Amir POUYANFAR
 geometry: margin=3cm
+# header-includes: 
+#     - \usepackage{graphicx}
+#     - \usepackage{fancyhdr}
+#     # https://ctex.org/documents/packages/layout/fancyhdr.pdf
+#     - \pagestyle{fancy}
+#     - \rhead{}
+#     - \lhead{}
+#     - \renewcommand{\headrulewidth}{0pt}
+#     - \renewcommand{\footrulewidth}{0.2pt}
+#     - \lfoot{\includegraphics[height=0.8cm]{logos/namedlogoUGE.png}}
+#     - \rfoot{\includegraphics[height=1cm]{logos/logoLIGM.png}}
 ...
 
 \pagebreak
@@ -170,11 +181,11 @@ On remarque ainsi une limitation de ncurses : en cas de réduction du terminal, 
 \pagebreak
 
 # Conclusion
-Pendant ce. TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
+Pendant ce TP d'initiation à la programmation d'applications terminal avec ncurses, nous avons découvert la structuration d'un projet utlisant ncurses ainsi que ses fonctions de base.
 
 # Compilation
-Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simplifier la compilation, automatiser le formatage et la création d'un rendu au format ``zip``.
-Vous pouvez utiliser la commande ``make``.
+Nous avons fait le choix d'utiliser un Makefile, dès à présent afin de simplifier la compilation, automatiser le formatage, la création du rapport et d'un rendu au format ``zip``.
+Vous pouvez donc utiliser la commande ``make``.
 
 Remarque : La norme utilisée pour la compilation a été remplacé par ``gnu17`` au lieu de ``c17``, afin que les warnings liées à ``usleep`` disparaissent.
 La fonction ``usleep`` serait dépréciée dans les normes POSIX récentes.
